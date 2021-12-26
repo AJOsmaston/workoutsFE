@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 export const useExerciseList = () => {
 
   const [exercises, setExercises] = useState();
+  const [loaded, setLoaded] = useState()
 
-  const getExercises = async = () => {
+  const getExercises = async () => {
     const url = "http://localhost:3000/exercises";
     const res = await fetch(url, { method: "GET" });
     const json = await res.json();
-    setExercises(json)
+    setExercises(json);
+    setLoaded(true);
   }
 
-  const addExercise = async = (exercise) => {
+  const addExercise = async (exercise) => {
     // needs format: "{
     //                  "exercise": {
     //                  "name": "Deadlift"
@@ -24,14 +26,16 @@ export const useExerciseList = () => {
       body: JSON.stringify(exercise)
     });
     const json = await res.json();
-    // refresh the exercise use state after
-    getExercises();
+    if (json.id){
+      getExercises();
+      setLoaded(true);
+    }
   }
 
   useEffect(() => {
     getExercises();
   }, []);
 
-  return [exercises, addExercise]
+  return [exercises, addExercise, loaded]
 
 };
