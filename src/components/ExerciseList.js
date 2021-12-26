@@ -1,5 +1,6 @@
 import { useExerciseList } from "../hooks/useExerciseList";
-import { DisplayExercises } from "./DisplayExercises";
+import { DisplayExercise } from "./DisplayExercise";
+import { AddExercise } from "./AddExercise"
 
 export const ExerciseList = () => {
   const [exercises, addExercise, loaded] = useExerciseList();
@@ -7,8 +8,9 @@ export const ExerciseList = () => {
   return (
     <>
     {loaded && exercises.map((exercise) => {
-      return <DisplayExercises key={exercise.id} exercise={exercise} />
+      return <DisplayExercise key={exercise.id} exercise={exercise} />
     })}
+    <AddExercise addExercise={addExercise} />
     </>
   );
 

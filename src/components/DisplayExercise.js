@@ -1,4 +1,4 @@
-export const DisplayExercises = ( { exercise } ) => {
+export const DisplayExercise = ( { exercise } ) => {
 
   return (
     <div id={exercise.id}>
